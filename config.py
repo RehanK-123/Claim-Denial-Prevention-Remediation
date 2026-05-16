@@ -26,6 +26,3 @@ def _get_gcp_secret(secret_id: str, version_id: str = "latest") -> str:
 
 def setup_environment():
     """Call this function at the start of your application to set up environment variables."""
-    os.environ["DATABRICKS_HOST_URL"] = "https://dbc-19cd72a7-6a95.cloud.databricks.com/?o=7474651951534513"
-    os.environ["DATABRICKS_TOKEN_ID"] = "dapic3729e20cb7a2f401d58b3254c80afee"
-    os.environ["DATABRICKS_HOST"] = "https://dbc-19cd72a7-6a95.cloud.databricks.com"
