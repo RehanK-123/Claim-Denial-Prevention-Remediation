@@ -1,0 +1,2 @@
+2026-04-26 23:15:16,468 - ERROR - {'error_code': 'CLM-VAL-001', 'message': 'Invalid claim data', 'details': {'reason': PySparkAttributeError()}}
+2026-04-26 23:17:57,289 - ERROR - {'error_code': 'CLM-VAL-001', 'message': 'Invalid claim data', 'details': {'reason': NameError("name 'F' is not defined")}}

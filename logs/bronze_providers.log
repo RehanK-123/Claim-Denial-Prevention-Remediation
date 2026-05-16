@@ -1,0 +1,1 @@
+2026-04-26 22:16:16,447 - ERROR - {'error_code': 'CLM-DAO-004', 'message': 'Failed to create table', 'details': {'table_name': 'bronze_providers'}}

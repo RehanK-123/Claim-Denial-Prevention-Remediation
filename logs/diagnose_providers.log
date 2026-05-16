@@ -1,0 +1,1 @@
+2026-04-26 23:43:10,593 - ERROR - {'error_code': 'CLM-VAL-001', 'message': 'Invalid claim data', 'details': {'reason': AttributeError("'DAO' object has no attribute 'read'")}}

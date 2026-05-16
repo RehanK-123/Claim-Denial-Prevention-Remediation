@@ -1,0 +1,663 @@
+# CLAIM DENIAL FIXES KNOWLEDGE BASE
+
+# PURPOSE
+
+This document contains structured remediation guidance for healthcare claim denial prevention and correction workflows. Each section represents actionable fixes that can be retrieved by a Retrieval-Augmented Generation (RAG) pipeline to ground Large Language Model responses in deterministic remediation logic.
+
+# FORMAT
+
+* CATEGORY
+* ISSUE
+* ROOT CAUSE
+* DETECTION SIGNALS
+* REMEDIATION STEPS
+* VALIDATION CHECKS
+* ESCALATION CONDITIONS
+* PREVENTION STRATEGY
+
+================================================================================
+CATEGORY: DATA COMPLETENESS
+===========================
+
+ISSUE: Missing diagnosis code
+ROOT CAUSE:
+Diagnosis information was omitted during claim submission or mapping.
+
+DETECTION SIGNALS:
+
+* diagnosis_code is NULL
+* diagnosis_code length invalid
+* diagnosis_missing flag = 1
+* completeness_score below threshold
+
+REMEDIATION STEPS:
+
+1. Retrieve diagnosis information from patient encounter records.
+2. Verify ICD-10 code validity.
+3. Ensure diagnosis supports the billed procedure.
+4. Resubmit claim with corrected diagnosis coding.
+5. Validate diagnosis specificity requirements.
+
+VALIDATION CHECKS:
+
+* ICD-10 code exists in approved code set.
+* Diagnosis code matches procedure necessity.
+* Diagnosis is not expired or deprecated.
+
+ESCALATION CONDITIONS:
+
+* Provider repeatedly submits incomplete diagnosis data.
+* Diagnosis conflicts with procedure category.
+* Multiple diagnosis corrections required.
+
+PREVENTION STRATEGY:
+
+* Enforce mandatory diagnosis validation before submission.
+* Add ICD lookup validation in claim intake workflow.
+* Reject incomplete claims at rules engine stage.
+
+---
+
+ISSUE: Missing procedure code
+ROOT CAUSE:
+Procedure coding omitted during claim preparation.
+
+DETECTION SIGNALS:
+
+* procedure_code is NULL
+* CPT/HCPCS format invalid
+* proc_missing flag = 1
+
+REMEDIATION STEPS:
+
+1. Retrieve procedure details from encounter documentation.
+2. Assign correct CPT or HCPCS code.
+3. Validate modifier requirements.
+4. Ensure procedure aligns with diagnosis.
+5. Resubmit corrected claim.
+
+VALIDATION CHECKS:
+
+* Procedure code active in current billing year.
+* Procedure compatible with provider specialty.
+* Modifier requirements satisfied.
+
+ESCALATION CONDITIONS:
+
+* Repeated coding omissions.
+* Unsupported procedure combinations.
+
+PREVENTION STRATEGY:
+
+* Enable mandatory CPT validation.
+* Implement automated coding assistance.
+
+---
+
+ISSUE: Missing provider identifier
+ROOT CAUSE:
+Rendering or billing provider information incomplete.
+
+DETECTION SIGNALS:
+
+* provider_id is NULL
+* Invalid NPI format
+* provider_missing flag = 1
+
+REMEDIATION STEPS:
+
+1. Verify rendering provider NPI.
+2. Confirm provider enrollment status.
+3. Update claim with correct provider identifier.
+4. Validate taxonomy and specialty mappings.
+
+VALIDATION CHECKS:
+
+* NPI active and registered.
+* Provider enrolled with payer.
+* Taxonomy consistent with procedure.
+
+ESCALATION CONDITIONS:
+
+* Suspended provider.
+* Provider not contracted.
+
+PREVENTION STRATEGY:
+
+* Integrate NPI verification API.
+* Maintain provider master registry.
+
+================================================================================
+CATEGORY: COST AND BILLING ANOMALIES
+====================================
+
+ISSUE: Billed amount significantly exceeds expected cost
+ROOT CAUSE:
+Claim amount substantially deviates from historical benchmarks.
+
+DETECTION SIGNALS:
+
+* billed_amount > expected_cost threshold
+* cost_ratio exceeds acceptable range
+* provider_cost_ratio elevated
+* regional_cost_deviation high
+
+REMEDIATION STEPS:
+
+1. Review charge master mapping.
+2. Validate units billed.
+3. Confirm no duplicate service inflation.
+4. Compare against regional reimbursement norms.
+5. Correct excessive billing values.
+6. Attach supporting medical necessity documentation if justified.
+
+VALIDATION CHECKS:
+
+* Amount within payer reimbursement guidelines.
+* Units consistent with service duration.
+* Historical provider averages within tolerance.
+
+ESCALATION CONDITIONS:
+
+* Extreme cost outlier.
+* Repeated overbilling behavior.
+* Fraud investigation trigger.
+
+PREVENTION STRATEGY:
+
+* Apply pre-submission cost anomaly detection.
+* Alert on abnormal provider billing trends.
+
+---
+
+ISSUE: Diagnosis-related billing unusually expensive
+ROOT CAUSE:
+Claim cost inconsistent with expected diagnosis treatment range.
+
+DETECTION SIGNALS:
+
+* diagnosis_cost_ratio elevated
+* billed_amount exceeds diagnosis average
+* severity inconsistent with billed amount
+
+REMEDIATION STEPS:
+
+1. Validate diagnosis severity.
+2. Review procedure necessity.
+3. Verify treatment complexity.
+4. Ensure coding specificity.
+5. Attach supporting clinical evidence.
+
+VALIDATION CHECKS:
+
+* Cost aligned with diagnosis benchmark.
+* Procedures medically necessary.
+
+ESCALATION CONDITIONS:
+
+* Persistent diagnosis-cost mismatch.
+* Potential upcoding patterns.
+
+PREVENTION STRATEGY:
+
+* Deploy diagnosis-cost benchmarking rules.
+* Flag high-risk diagnosis-procedure combinations.
+
+---
+
+ISSUE: Provider billing exceeds peer averages
+ROOT CAUSE:
+Provider billing patterns significantly exceed peer baseline.
+
+DETECTION SIGNALS:
+
+* provider_avg_billed significantly elevated
+* provider_cost_ratio above threshold
+* abnormal provider trend detected
+
+REMEDIATION STEPS:
+
+1. Audit provider billing history.
+2. Validate coding practices.
+3. Review documentation integrity.
+4. Compare against specialty peers.
+5. Correct unsupported billing patterns.
+
+VALIDATION CHECKS:
+
+* Provider averages within specialty norms.
+* Documentation supports billed services.
+
+ESCALATION CONDITIONS:
+
+* Fraud or abuse indicators.
+* Repeated excessive billing.
+
+PREVENTION STRATEGY:
+
+* Continuous provider benchmarking.
+* Real-time anomaly alerts.
+
+================================================================================
+CATEGORY: MEDICAL NECESSITY
+===========================
+
+ISSUE: Procedure not medically necessary
+ROOT CAUSE:
+Diagnosis and clinical documentation do not justify billed procedure.
+
+DETECTION SIGNALS:
+
+* diagnosis-procedure mismatch
+* unsupported medical necessity policy
+* payer policy conflict
+
+REMEDIATION STEPS:
+
+1. Review clinical documentation.
+2. Validate diagnosis specificity.
+3. Ensure payer medical necessity criteria met.
+4. Attach physician notes.
+5. Submit supporting documentation.
+6. Modify procedure coding if incorrect.
+
+VALIDATION CHECKS:
+
+* CMS or payer policy supports procedure.
+* Clinical documentation sufficient.
+
+ESCALATION CONDITIONS:
+
+* Repeated medical necessity denials.
+* Unsupported high-cost procedures.
+
+PREVENTION STRATEGY:
+
+* Integrate policy-based validation engine.
+* Use payer-specific rules during submission.
+
+---
+
+ISSUE: Severity inconsistent with treatment intensity
+ROOT CAUSE:
+Claimed severity level does not justify procedures billed.
+
+DETECTION SIGNALS:
+
+* severity low but billed_amount high
+* treatment complexity mismatch
+
+REMEDIATION STEPS:
+
+1. Review patient acuity.
+2. Validate severity coding.
+3. Adjust diagnosis coding if needed.
+4. Attach supporting clinical notes.
+
+VALIDATION CHECKS:
+
+* Severity supported by documentation.
+* Procedure intensity aligned with acuity.
+
+ESCALATION CONDITIONS:
+
+* Potential upcoding.
+* Repeat severity inconsistencies.
+
+PREVENTION STRATEGY:
+
+* Automated severity-treatment validation.
+
+================================================================================
+CATEGORY: DUPLICATE AND FREQUENCY ISSUES
+========================================
+
+ISSUE: Duplicate claim submission
+ROOT CAUSE:
+Same encounter or service submitted multiple times.
+
+DETECTION SIGNALS:
+
+* Same patient, provider, date, and procedure repeated
+* Duplicate hash match
+* Claim frequency spike
+
+REMEDIATION STEPS:
+
+1. Identify duplicate submissions.
+2. Void duplicate claims.
+3. Retain valid original claim.
+4. Update claim control process.
+
+VALIDATION CHECKS:
+
+* Unique claim identifier exists.
+* No overlapping encounter duplication.
+
+ESCALATION CONDITIONS:
+
+* Repeated duplicate behavior.
+* Systemic duplicate generation.
+
+PREVENTION STRATEGY:
+
+* Duplicate detection engine.
+* Unique claim fingerprinting.
+
+---
+
+ISSUE: Unusually high claim frequency
+ROOT CAUSE:
+Excessive claims submitted within abnormal timeframe.
+
+DETECTION SIGNALS:
+
+* avg_claim_burst_freq elevated
+* abnormal provider frequency pattern
+* excessive repeat procedures
+
+REMEDIATION STEPS:
+
+1. Audit encounter legitimacy.
+2. Validate repeat treatment necessity.
+3. Review utilization patterns.
+4. Remove erroneous repeated claims.
+
+VALIDATION CHECKS:
+
+* Claim intervals clinically reasonable.
+* Utilization aligned with policy.
+
+ESCALATION CONDITIONS:
+
+* Fraud investigation trigger.
+* Abusive utilization patterns.
+
+PREVENTION STRATEGY:
+
+* Utilization monitoring.
+* Frequency threshold alerts.
+
+================================================================================
+CATEGORY: PROVIDER VALIDATION
+=============================
+
+ISSUE: Provider not eligible for billed service
+ROOT CAUSE:
+Provider specialty or credential incompatible with procedure.
+
+DETECTION SIGNALS:
+
+* specialty mismatch
+* taxonomy conflict
+* invalid credential mapping
+
+REMEDIATION STEPS:
+
+1. Verify provider specialty.
+2. Validate credential eligibility.
+3. Reassign correct rendering provider.
+4. Correct taxonomy mappings.
+
+VALIDATION CHECKS:
+
+* Specialty authorized for procedure.
+* Credential active.
+
+ESCALATION CONDITIONS:
+
+* Repeated specialty mismatches.
+* Credential suspension.
+
+PREVENTION STRATEGY:
+
+* Specialty-procedure validation engine.
+* Credential monitoring integration.
+
+---
+
+ISSUE: Provider enrollment inactive
+ROOT CAUSE:
+Provider enrollment expired or inactive with payer.
+
+DETECTION SIGNALS:
+
+* Enrollment verification failure
+* NPI inactive
+
+REMEDIATION STEPS:
+
+1. Confirm enrollment status.
+2. Revalidate payer registration.
+3. Update enrollment records.
+4. Resubmit after activation.
+
+VALIDATION CHECKS:
+
+* Enrollment active during service date.
+* Payer participation confirmed.
+
+ESCALATION CONDITIONS:
+
+* Provider excluded from network.
+
+PREVENTION STRATEGY:
+
+* Automated enrollment verification.
+
+================================================================================
+CATEGORY: REGION AND POLICY COMPLIANCE
+======================================
+
+ISSUE: Regional billing deviation
+ROOT CAUSE:
+Claim cost inconsistent with regional reimbursement norms.
+
+DETECTION SIGNALS:
+
+* regional_cost_deviation elevated
+* provider_region mismatch
+* cost_region anomaly
+
+REMEDIATION STEPS:
+
+1. Compare reimbursement with regional benchmarks.
+2. Validate geographic billing rules.
+3. Correct pricing inconsistencies.
+4. Attach locality-based justification.
+
+VALIDATION CHECKS:
+
+* Regional fee schedule alignment.
+* Geographic modifier correctness.
+
+ESCALATION CONDITIONS:
+
+* Persistent regional outliers.
+
+PREVENTION STRATEGY:
+
+* Region-aware reimbursement validation.
+
+---
+
+ISSUE: Payer policy violation
+ROOT CAUSE:
+Claim conflicts with CMS or payer-specific reimbursement rules.
+
+DETECTION SIGNALS:
+
+* Policy retrieval conflict
+* Unsupported modifier usage
+* Coverage limitation triggered
+
+REMEDIATION STEPS:
+
+1. Retrieve applicable payer policy.
+2. Identify conflicting billing element.
+3. Correct modifier or coding.
+4. Attach required documentation.
+5. Resubmit compliant claim.
+
+VALIDATION CHECKS:
+
+* Policy requirements satisfied.
+* Coverage criteria met.
+
+ESCALATION CONDITIONS:
+
+* Repeated policy violations.
+* Non-covered service disputes.
+
+PREVENTION STRATEGY:
+
+* Real-time payer policy retrieval.
+* Automated compliance validation.
+
+================================================================================
+CATEGORY: DOCUMENTATION ISSUES
+==============================
+
+ISSUE: Insufficient supporting documentation
+ROOT CAUSE:
+Required medical records or clinical notes missing.
+
+DETECTION SIGNALS:
+
+* Documentation flag triggered
+* Medical necessity evidence incomplete
+
+REMEDIATION STEPS:
+
+1. Retrieve physician notes.
+2. Attach operative reports.
+3. Include lab and imaging evidence.
+4. Submit complete supporting packet.
+
+VALIDATION CHECKS:
+
+* Documentation legible and complete.
+* Evidence supports billed services.
+
+ESCALATION CONDITIONS:
+
+* Repeated documentation deficiencies.
+
+PREVENTION STRATEGY:
+
+* Documentation checklist enforcement.
+* Automated attachment validation.
+
+---
+
+ISSUE: Modifier missing or invalid
+ROOT CAUSE:
+Procedure modifier omitted or incorrectly applied.
+
+DETECTION SIGNALS:
+
+* Modifier validation failure
+* Procedure requires modifier but missing
+
+REMEDIATION STEPS:
+
+1. Identify required modifier.
+2. Validate modifier usage.
+3. Correct claim coding.
+4. Resubmit corrected claim.
+
+VALIDATION CHECKS:
+
+* Modifier compatible with CPT.
+* Modifier policy compliant.
+
+ESCALATION CONDITIONS:
+
+* Frequent modifier misuse.
+
+PREVENTION STRATEGY:
+
+* Modifier recommendation engine.
+* Coding rule automation.
+
+================================================================================
+CATEGORY: RAG REMEDIATION GUIDANCE
+==================================
+
+ISSUE: High denial probability prediction
+ROOT CAUSE:
+Machine learning model detected elevated denial risk.
+
+DETECTION SIGNALS:
+
+* denial_probability > threshold
+* SHAP features strongly negative
+* Multiple anomaly indicators active
+
+REMEDIATION STEPS:
+
+1. Review top contributing ML features.
+2. Retrieve related payer policies.
+3. Validate completeness and coding.
+4. Correct anomalous billing values.
+5. Attach supporting documentation.
+6. Recalculate risk score before submission.
+
+VALIDATION CHECKS:
+
+* Model risk score reduced after correction.
+* Policy conflicts resolved.
+* Missing data completed.
+
+ESCALATION CONDITIONS:
+
+* Risk remains elevated after remediation.
+* Fraud indicators triggered.
+
+PREVENTION STRATEGY:
+
+* Real-time pre-submission ML scoring.
+* Human review for high-risk claims.
+
+---
+
+ISSUE: Multiple denial indicators triggered
+ROOT CAUSE:
+Claim contains combined anomalies across coding, billing, and documentation.
+
+DETECTION SIGNALS:
+
+* Multiple SHAP features elevated
+* Completeness score low
+* Cost ratios abnormal
+* Provider anomaly flags active
+
+REMEDIATION STEPS:
+
+1. Prioritize highest-impact anomalies.
+2. Resolve missing data first.
+3. Validate diagnosis and procedure alignment.
+4. Normalize billed amounts.
+5. Verify provider eligibility.
+6. Attach supporting policy evidence.
+7. Re-score claim using prediction model.
+
+VALIDATION CHECKS:
+
+* Anomaly indicators reduced.
+* Claim passes rules engine.
+* Retrieval evidence supports billing.
+
+ESCALATION CONDITIONS:
+
+* Persistent composite risk.
+* Fraud review required.
+
+PREVENTION STRATEGY:
+
+* Ensemble validation pipeline.
+* Multi-stage rules plus ML review.
+
+================================================================================
+END OF FIXES KNOWLEDGE BASE
+===========================

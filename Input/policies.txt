@@ -1,0 +1,59 @@
+SECTION: Documentation Requirements
+
+All healthcare claims submitted for reimbursement must contain complete and legible clinical documentation. Claims lacking physician signatures, treatment plans, diagnostic evidence, or patient encounter notes may be denied during prepayment review. Documentation must support the billed procedure and diagnosis combination. Repeated submission of incomplete documentation may trigger provider audits and focused review programs.
+
+SECTION: Medical Necessity Review
+
+Claims must demonstrate that the provided services were medically necessary for diagnosis or treatment of the patient condition. Services that exceed standard treatment guidelines or are unsupported by patient history may require additional review. Medical necessity determinations are based on physician assessment, clinical evidence, and CMS coverage policies.
+
+SECTION: Regional Billing Compliance
+
+Claims with billed amounts significantly exceeding regional or specialty-specific averages may be flagged for billing anomaly review. Regional pricing analysis is performed using historical utilization patterns and provider peer comparisons. Providers exhibiting consistent cost deviations may be selected for focused utilization review.
+
+SECTION: Provider Utilization Monitoring
+
+Providers submitting unusually high frequencies of claims within short time intervals may trigger utilization monitoring workflows. Burst claim behavior, repetitive billing patterns, or excessive procedure utilization may require additional supporting evidence before reimbursement approval.
+
+SECTION: Diagnosis and Procedure Validation
+
+Procedure codes must be clinically supported by associated diagnosis codes. Claims containing incompatible diagnosis and procedure combinations may be denied for coding inconsistency. All diagnosis codes should accurately reflect patient condition severity and treatment necessity.
+
+SECTION: Prior Authorization Compliance
+
+Certain procedures and treatment categories require prior authorization before service delivery. Claims submitted without valid authorization identifiers may be denied. Providers are responsible for ensuring authorization approvals remain valid during the treatment period.
+
+SECTION: Experimental Procedure Coverage
+
+Experimental or investigational procedures lacking CMS approval are not eligible for reimbursement under standard coverage guidelines. Claims involving non-covered services must include supporting medical justification and applicable authorization approvals when available.
+
+SECTION: Duplicate Claim Detection
+
+Duplicate claims containing identical patient identifiers, provider information, procedure codes, and billing periods may be automatically denied. Claims resubmitted for correction must include appropriate adjustment indicators and supporting correction documentation.
+
+SECTION: Severity and Cost Consistency
+
+Low severity diagnoses associated with unusually high billed amounts may require enhanced documentation review. Claims exhibiting severity-cost mismatches are evaluated using peer provider benchmarks and expected treatment cost models.
+
+SECTION: Data Completeness Standards
+
+Claims must include all mandatory demographic, provider, diagnosis, and procedure information. Missing or invalid claim fields may result in claim rejection or denial. Data quality validation is performed before adjudication workflows begin.
+
+SECTION: Specialty Billing Review
+
+Provider billing behavior is continuously evaluated against specialty-specific benchmarks. Providers demonstrating sustained deviations in utilization, billing intensity, or treatment frequency may undergo focused medical review and reimbursement validation procedures.
+
+SECTION: Coverage Limitation Policy
+
+Services not covered under applicable CMS benefit categories are ineligible for reimbursement. Claims submitted for excluded services may be denied unless supplemental coverage authorization or policy exception criteria are satisfied.
+
+SECTION: Clinical Documentation Integrity
+
+Clinical notes must accurately reflect patient condition, treatment rationale, and procedural outcomes. Documentation inconsistencies, missing encounter details, or unsupported treatment escalation may result in denial or request for additional review.
+
+SECTION: High Risk Billing Patterns
+
+Claims associated with historically suspicious billing behavior, abnormal utilization trends, or elevated denial frequencies may be prioritized for manual investigation. Risk scoring models may incorporate provider history, diagnosis complexity, and billing deviations during review.
+
+SECTION: Audit and Compliance Review
+
+Providers selected for audit review must furnish complete supporting documentation upon request. Failure to comply with audit documentation requirements may result in payment recovery actions, denial escalation, or provider compliance investigations.

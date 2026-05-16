@@ -1,4 +1,5 @@
-from util.utils import diagnose_data
+from util.utils import diagnose_data, spark, logger
+from util.errors.validation_errors import InvalidClaimError
 from util.dao import DAO
 import pandas as pd
 
@@ -7,12 +8,12 @@ def diagnose_cost():
     logger_instance = logger("logs/diagnose_costs.log")
 
     try:
-        conn = DAO("bronze.db")
-        data = conn.read("bronze_cost")
-        df = pd.DataFrame(data, columns=["procedure_code", "average_cost", "expected_cost", "region"])
+        conn = DAO(spark, "newcatalog", "bronze")
+        df = conn.read_table("bronze_cost")
         diagnostics = diagnose_data(df)
     except Exception as e:
-        logger_instance.error(f"Error diagnosing cost data {e}")
+        err = InvalidClaimError(e)
+        logger_instance.error(err.to_dict())
         return
 
     return diagnostics

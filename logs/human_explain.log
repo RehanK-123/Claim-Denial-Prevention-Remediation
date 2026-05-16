@@ -1,0 +1,90 @@
+2026-05-12 21:17:56,376 - INFO - Generating explanation for claim: C0002
+2026-05-12 21:17:56,377 - INFO - Successfully parsed SHAP explanations.
+2026-05-12 21:17:56,642 - ERROR - LLM explanation generation failed.
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 820, in init_auth
+    self._header_factory = self._credentials_strategy(self)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/credentials_provider.py", line 1294, in __call__
+    raise ValueError(
+        f"cannot configure default credentials, please check {auth_flow_url} to configure credentials for your preferred authentication method."
+    )
+ValueError: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 318, in __init__
+    self.init_auth()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 825, in init_auth
+    raise ValueError(f"{self._credentials_strategy.auth_type()} auth: {e}") from e
+ValueError: default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/ML/human_explain.py", line 196, in generate_human_readable_explanation
+    w = WorkspaceClient()
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/__init__.py", line 244, in __init__
+    config = client.Config(
+        host=host,
+    ...<31 lines>...
+        custom_headers=custom_headers,
+    )
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 322, in __init__
+    raise ValueError(message) from e
+ValueError: default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method. Config: host=https://dbc-19cd72a7-6a95.cloud.databricks.com, account_id=7911b9c5-6928-4e2e-84b4-72dfecd55682, workspace_id=7474651951534513, discovery_url=https://dbc-19cd72a7-6a95.cloud.databricks.com/oidc/.well-known/oauth-authorization-server, token_audience=https://dbc-19cd72a7-6a95.cloud.databricks.com/oidc/v1/token. Env: DATABRICKS_HOST
+2026-05-12 21:17:56,692 - ERROR - Execution failed.
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 820, in init_auth
+    self._header_factory = self._credentials_strategy(self)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/credentials_provider.py", line 1294, in __call__
+    raise ValueError(
+        f"cannot configure default credentials, please check {auth_flow_url} to configure credentials for your preferred authentication method."
+    )
+ValueError: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 318, in __init__
+    self.init_auth()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 825, in init_auth
+    raise ValueError(f"{self._credentials_strategy.auth_type()} auth: {e}") from e
+ValueError: default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/ML/human_explain.py", line 196, in generate_human_readable_explanation
+    w = WorkspaceClient()
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/__init__.py", line 244, in __init__
+    config = client.Config(
+        host=host,
+    ...<31 lines>...
+        custom_headers=custom_headers,
+    )
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/venv/lib/python3.13/site-packages/databricks/sdk/config.py", line 322, in __init__
+    raise ValueError(message) from e
+ValueError: default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method. Config: host=https://dbc-19cd72a7-6a95.cloud.databricks.com, account_id=7911b9c5-6928-4e2e-84b4-72dfecd55682, workspace_id=7474651951534513, discovery_url=https://dbc-19cd72a7-6a95.cloud.databricks.com/oidc/.well-known/oauth-authorization-server, token_audience=https://dbc-19cd72a7-6a95.cloud.databricks.com/oidc/v1/token. Env: DATABRICKS_HOST
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/ML/human_explain.py", line 267, in <module>
+    explanation = generate_human_readable_explanation(
+        claim_id="C0002",
+    ...<2 lines>...
+        shap_output_lines=shap_output_lines
+    )
+  File "/Users/rehan.khan/Claim-Denial-Prevention-Remediation/ML/human_explain.py", line 227, in generate_human_readable_explanation
+    raise LLMExplanationGenerationException(
+    ...<2 lines>...
+    ) from e
+util.errors.ml_errors.LLMExplanationGenerationException: [CLM-LLM-001] Failed to generate human-readable claim explanation
+2026-05-12 21:19:06,632 - INFO - Generating explanation for claim: C0002
+2026-05-12 21:19:06,632 - INFO - Successfully parsed SHAP explanations.
+2026-05-12 21:19:18,339 - INFO - Explanation generated successfully for claim: C0002
