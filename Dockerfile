@@ -10,9 +10,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     NUMBA_DISABLE_CUDA=1 \
     PIP_NO_CACHE_DIR=1 \
-    DATABRICKS_HOST="https://dbc-19cd72a7-6a95.cloud.databricks.com" \
-    DATABRICKS_HOST_URL="https://dbc-19cd72a7-6a95.cloud.databricks.com/?o=7474651951534513" \
-    DATABRICKS_TOKEN_ID="dapic3729e20cb7a2f401d58b3254c80afee"
 
 WORKDIR /app
 
