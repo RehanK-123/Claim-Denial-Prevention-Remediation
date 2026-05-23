@@ -1,6 +1,3 @@
-# Claim-Denial-Prevention-Remediation
-
-
 # Claim Denial Prevention & Remediation Platform
 
 AI-powered healthcare claims intelligence platform for denial prediction, explainable AI, intelligent remediation, and policy-aware claims processing.
